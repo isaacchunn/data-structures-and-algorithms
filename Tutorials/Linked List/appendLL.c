@@ -120,7 +120,6 @@ void appendLL(LinkedList *ll_a , LinkedList *ll_b)
     //We are appending b's elements to a...
     //Find the tail of a
     ListNode * a_tail = findNode(ll_a, ll_a->size-1);
-    //Now we loop through b and keep updating tail's next.
     //Just set next to be head
     a_tail->next = ll_b->head;
     //Then set ll_b head to be null
