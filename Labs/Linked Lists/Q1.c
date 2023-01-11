@@ -40,7 +40,7 @@ int main()
     //Prints the list after user has stopped trying to append inside
     printList(head);
     
-    while(size > 0){
+    while(1){
         printf("Enter the index of the node to be removed: ");
         scanf("%d",&index);
 
@@ -161,7 +161,7 @@ int removeNode(ListNode **ptrHead, int index)
     /* Write your program code here */
     //Set curr to be ptrhead
     ListNode *curr;
-    ListNode * pre, *nodeToRemove;
+    ListNode * pre;
     //Check if the index is 0 first, this means we are attempting to remove the head, so we should update the head accordingly
     if(index == 0)
     {
@@ -172,16 +172,17 @@ int removeNode(ListNode **ptrHead, int index)
         return 1;
     }
     //Else we just attempt to find the node at that index
-    else if((nodeToRemove = findNode(*ptrHead, index)) != NULL)
+    else if((pre = findNode(*ptrHead, index -1)) != NULL)
     {
         //If we found the node to remove, we then find the node at the previous index as it is not a doubly linked list
         //Check if pre exists,
-        if((pre = findNode(*ptrHead, index -1)) != NULL)
+        if(pre->next != NULL)
         {
+            curr = pre->next;
             //Set pre-> next to be nodeToRemove's next
-            pre->next = nodeToRemove->next;
+            pre->next = pre->next->next;
             //Then we free the nodeToRemove
-            free(nodeToRemove);
+            free(curr);
             //Return 1 for successful remove
             return 1;
         }
