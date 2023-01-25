@@ -41,12 +41,12 @@ int main()
 	ll.size = 0;
 
     //So i can skip pressing one by one
-    // insertNode(&ll,ll.size, 2);
-    // insertNode(&ll,ll.size, 7);
-    // insertNode(&ll,ll.size, 18);
-    // insertNode(&ll,ll.size, 3);
-    // insertNode(&ll,ll.size, 4);
-    // insertNode(&ll,ll.size, 15);
+    insertNode(&ll,ll.size, 2);
+    insertNode(&ll,ll.size, 7);
+    insertNode(&ll,ll.size, 18);
+    insertNode(&ll,ll.size, 3);
+    insertNode(&ll,ll.size, 4);
+    insertNode(&ll,ll.size, 15);
 
 	printf("1: Insert an integer to the linked list:\n");
 	printf("2: Move all even integers to the back of the linked list:\n");

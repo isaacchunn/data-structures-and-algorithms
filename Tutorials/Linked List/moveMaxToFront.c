@@ -42,11 +42,11 @@ int main()
 	ll.head = NULL;
 	ll.size = 0;
 
-    // insertNode(&ll,ll.size, 30);
-    // insertNode(&ll,ll.size, 20);
-    // insertNode(&ll,ll.size, 40);
-    // insertNode(&ll,ll.size, 70);
-    // insertNode(&ll,ll.size, 50);
+    insertNode(&ll,ll.size, 30);
+    insertNode(&ll,ll.size, 20);
+    insertNode(&ll,ll.size, 40);
+    insertNode(&ll,ll.size, 70);
+    insertNode(&ll,ll.size, 50);
 
 	printf("1: Insert an integer to the linked list:\n");
 	printf("2: Move the largest stored value to the front of the list:\n");
@@ -95,35 +95,42 @@ int moveMaxToFront(ListNode **ptrHead)
     //Set some theoretical max
     ListNode * curr = *ptrHead;
     ListNode * maxNode;
-    int m = curr->item;
-    int maxIndice = 0;
-    int indice = 0;
+	ListNode * pre;
+	int m = curr->item;
+	//Update pre somewhere, before the maxNode
     while(curr)
     {
-        //Check
-        if(m < curr->item)
+        //Check if the curr iten is less than the next one
+        if(curr->next != NULL && curr->item < curr->next->item)
         {
-            //Update m
-            m = curr->item;
+			//So if the next is not null and the next item is larger, then we can update pre to cyrr and the max node to be next
             //Update maxNode
-            maxNode = curr;
-            maxIndice = indice;
+            maxNode = curr->next;
+			pre = curr;
+			//Update m to be next item
+			m = curr->next->item;
         }
+		else if (curr->next == NULL)
+		{
+			//Then its last node, and if its current item is more than the max, then the max node is the last node and pre should have been updated last loop
+			if(curr->item > m)
+			{
+				//Update max node
+				maxNode = curr;
+				m = curr->item;
+			}
+		}
+		//Increment
         curr = curr->next;
-        indice++;
     }
 
-    //Set curr to head
-    curr = *ptrHead;
-    //Loop again to get pre
-    while((maxIndice - 1) > 0)
-    {
-        curr = curr->next;
-        maxIndice--;
-    }
+	//If the max node is already the head, then we dont ahve to move anything
+	if(maxNode == *ptrHead)
+		return 0;
+
     //Curr is now the pre element
     //Set pre->next to be pre->next next;
-    curr->next = curr->next->next;
+    pre->next = pre->next->next;
     //Then set maxNode to be front and update head
     maxNode->next = *ptrHead;
     //Update head to be maxNode

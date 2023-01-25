@@ -109,6 +109,8 @@ void removeDuplicatesSortedLL(LinkedList *ll)
             curr->next = curr->next->next;
             //Then we free curr->next;
             free(temp);
+			//Reduce size
+			ll->size--;
         }
         //Go next
         curr = curr->next;
