@@ -130,7 +130,7 @@ int insertSortedLL(LinkedList *ll, int item)
     //If at the end of the loop, nothing was returned or added, then we must just add it at the back
     //Create a node
     insertNode(ll,ll->size,item);
-    return ll->size;
+    return ll->size - 1;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
