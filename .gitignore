@@ -51,3 +51,5 @@ Module.symvers
 Mkfile.old
 dkms.conf
 .vscode/tasks.json
+Labs/.vscode/tasks.json
+Labs/Linked Lists/.vscode/tasks.json
