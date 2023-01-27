@@ -91,11 +91,19 @@ int main()
 	printList(q.ll.head);
 
 	//for question 3
-	palindrome(word1); //*word1="A man a plan a canal Panama";
-	palindrome(word2);// *word2="Superman in the sky";
+    //Edited to show result.
+    
+	if(palindrome(word1) == 0) //*word1="A man a plan a canal Panama";
+        printf("%s was a palindrome.\n", word1);
+    else
+        printf("%s was not a palindrome.\n", word1);
 
+    if(palindrome(word2) == 0) //*word2="Superman in the sky";
+        printf("%s was a palindrome.\n", word2);
+    else
+        printf("%s was not a palindrome.\n", word2);
 
-	//for question 4
+	//for question 4 return 1 to show not balanced...? why they do like that lol
 	if (balanced("()")) printf("not balanced!\n");
 	else
 		printf("balanced!\n");
@@ -145,7 +153,16 @@ void removeUntil(Stack *s, int value){
 void recursiveReverse(Queue *q){
 
 	// write your code here
-
+	//If q is empty, then this is base case
+	if(isEmptyQueue(q))
+		return;
+	
+	//Store the current top item
+	int item = dequeue(q);
+	//Then continue calling the func into the call stack
+	recursiveReverse(q);
+	//Once empty, it goes all the way back, then we just queue everything better based on the call stack
+	enqueue(q, item);
 }
 
 ////////////////////////////////////////////////////////////
@@ -154,17 +171,100 @@ void recursiveReverse(Queue *q){
 int palindrome(char *word){
 
 	// write your code here
+    //Push every letter in word to a stack and queue, then check if top of stack == top of queue.
+    Stack s;
+    Queue q;
+    char * read = word;
+    char c;
+    //Initialization of values
+    s.ll.head = NULL;
+    s.ll.tail = NULL;
+    s.ll.size = 0;
+    
+    q.ll.head = NULL;
+    q.ll.tail = NULL;
+    q.ll.size = 0;
+
+    while(*read != '\0')
+    {
+        //Push and enqueue in to the stack and queue
+        //In this case we are pushing in the char, but its okay cause it will just be casted as an int instead.
+        //We are going to compare ascii values later using int.
+        //Ignore the spaces
+        if(*read != ' ')
+        {
+            c = *read;
+            //Check if read is higher case, assuming the correct input is given
+            //Alternatively can use ctype.h to do this
+            if(c >= 65 && c <= 90)
+                c+= 32;
+
+            push(&s, c);
+            enqueue(&q, c);
+        }
+        read++;
+    }
+    //Then we just compare top of stack with front of queue
+    //The top of the stack should be equal to the first output of the queue.
+    //Suppose a string is Banana
+    //Then the stack is stored in ananaB
+    //And the queue is stored as per normal Banana, but the first dequeued is at the front which is B.
+    //One check should have been sufficient since they are same size
+    while(!isEmptyStack(&s) && !isEmptyQueue(&q))
+    {
+        //Check if the pop and deuqeued elements are same, if not, return -1.
+        if(pop(&s) != dequeue(&q))
+            return -1;
+    }
+    //On here, it is a palindrome.
+    return 0;
 }
-
-
 
 ////////////////////////////////////////////////////////////
 //Question 4
-
+//Similar to https://leetcode.com/problems/valid-parentheses/
 int balanced(char *expression){
 
 	// write your code here
+    //Create a stack
+    Stack s;
+	char * r = expression;
+	char c;
+    s.ll.head = NULL;
+    s.ll.tail = NULL;
+    s.ll.size = 0;
 
+    //Loop through the expression
+    while(*r != '\0')
+	{
+		//Check if it's an opening brace
+		if(*r == '(' || *r == '[' || *r == '{')
+		{
+			//Then we should push into the stack
+			push(&s, *r);
+		}
+		else
+		{
+			//Else its a closing brace either ), }, ]
+			//If empty queue, we can return as we started with a closing bracket
+			if(isEmptyStack(&s))
+				return -1;
+
+			//Else we pop the stack to see top and if its a valid closing
+			c = pop(&s);
+			
+			//Check if theres a proper closing, else we have incorrectly closed and its not balanced.
+			if(*r == ')' && c != '(')
+				return 1;
+			else if (*r == ']' && c != '[')
+				return 1;
+			else if (*r == '}' && c != '{')
+				return 1;
+		}
+		r++;
+	}
+	//This means its balanced.
+	return 0;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
