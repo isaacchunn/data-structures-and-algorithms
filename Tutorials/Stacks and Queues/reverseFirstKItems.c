@@ -123,7 +123,7 @@ void reverseFirstKItems(Queue *q, int k)
     s.ll.tail = NULL;
     s.ll.size = 0;
 
-    //sIPPOSE that the q was 1,2,3,4,5,6, k = 3
+    //Suppose that the q was 1,2,3,4,5,6, k = 3
     //Dequeue the first k elements to store into the stack.
     for(i = 0; i < k; i++)
     {
