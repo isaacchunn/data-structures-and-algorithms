@@ -87,7 +87,7 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-// THE PROPER VERSION WITHOUT RELIANCE ON FUNCTIONS USE TO SOLIDIFY MY KNOWLEDGE ON LINKED LISTS.
+
 int insertSortedLL(LinkedList *ll, int item)
 {
 	/* add your code here */
@@ -95,20 +95,13 @@ int insertSortedLL(LinkedList *ll, int item)
     //However, if we have went above a certain number without getting an instance, then the number must not exist
     //Based on the assumption that it is always sorted or empty.
     //So we loop through the ll first
-    ListNode * curr, *newNode, *pre;
+    ListNode * curr;
     int index = 0;
 
     //Check that head is NULL or the current head item is more than the item to be added
     if(ll->head == NULL || ll->head->item > item)
     {
-        //Then new node is malloced and inserted in.
-        newNode = malloc(sizeof(ListNode));
-        newNode->item = item;
-        newNode->next = ll->head;
-        ll->head = newNode;
-        //Increment size
-        ll->size++;
-        //This is the index in which we return where it is added
+		insertNode(ll,0,item);
         return 0;
     }
     
@@ -124,20 +117,10 @@ int insertSortedLL(LinkedList *ll, int item)
         //Once our current item has become bigger than item, then we insert before this and update the links accordingly
         if(curr->item > item)
         {
-            //Create a node
-            newNode = malloc(sizeof(ListNode));
-            newNode->item = item;
-            //Update the links
-            //Should update pre next to be next node
-            pre->next = newNode;
-            //Update newNodes next to curr, basically inserting new node in between...
-            newNode->next = curr;
-            //Increment size.
-            ll->size++;
+			//Just insert node at the previous index
+			insertNode(ll,index, item);
             return index;
         }  
-        //Update pre
-        pre = curr;
         //Traverse the list
         curr = curr->next;
         //Increment index
@@ -146,14 +129,8 @@ int insertSortedLL(LinkedList *ll, int item)
 
     //If at the end of the loop, nothing was returned or added, then we must just add it at the back
     //Create a node
-    newNode = malloc(sizeof(ListNode));
-    newNode->item = item;
-    pre->next = newNode;
-    newNode->next = NULL;
-    //Increment the size once again
-    ll->size++;
-
-    return index;
+    insertNode(ll,ll->size,item);
+    return ll->size;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
