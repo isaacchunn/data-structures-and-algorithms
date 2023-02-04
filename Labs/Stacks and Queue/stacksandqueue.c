@@ -176,6 +176,7 @@ int palindrome(char *word){
     Queue q;
     char * read = word;
     char c;
+	int half;
     //Initialization of values
     s.ll.head = NULL;
     s.ll.tail = NULL;
@@ -204,17 +205,20 @@ int palindrome(char *word){
         }
         read++;
     }
+	half = s.ll.size / 2;
     //Then we just compare top of stack with front of queue
     //The top of the stack should be equal to the first output of the queue.
     //Suppose a string is Banana
     //Then the stack is stored in ananaB
     //And the queue is stored as per normal Banana, but the first dequeued is at the front which is B.
-    //One check should have been sufficient since they are same size
-    while(!isEmptyStack(&s) && !isEmptyQueue(&q))
+    //Huge optimization is to use ll size
+    while(half > 0)
     {
         //Check if the pop and deuqeued elements are same, if not, return -1.
         if(pop(&s) != dequeue(&q))
             return -1;
+
+		half--;
     }
     //On here, it is a palindrome.
     return 0;
