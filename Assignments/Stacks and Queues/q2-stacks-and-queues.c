@@ -143,9 +143,6 @@ void removeEvenValues(Stack *s)
 		}
 	}
 
-	//Then remove all elements in original stack
-	removeAllItemsFromStack(s);
-
 	//Then push everything from temp stack
 	while(!isEmptyStack(&tempStack))
 	{

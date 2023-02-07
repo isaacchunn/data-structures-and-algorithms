@@ -151,10 +151,7 @@ void removeOddValues(Queue *q)
 		}
 	}
 	
-	//Then we want to remove everything from the initial queue and append whatevers left in the temp queue
-	removeAllItemsFromQueue(q);
-
-	//Then push everything from temp queue back to iriginal q
+	//Then push everything from temp queue back to original q
 	while(!isEmptyQueue(&tempQueue))
 	{
 		enqueue(q, dequeue(&tempQueue));
