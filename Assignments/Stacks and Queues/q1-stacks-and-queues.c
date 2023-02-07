@@ -128,33 +128,16 @@ void createQueueFromLinkedList(LinkedList *ll, Queue *q)
 void removeOddValues(Queue *q)
 {
 	//add your code here
-
-	//Use another queue to store the result
-	Queue tempQueue;
-	int item;
-
+	int item, i;
+	int size = q->ll.size;
 	if(q == NULL)
 		return;
-
-	//Initialize items
-	tempQueue.ll.head = NULL;
-	tempQueue.ll.size = 0;
-
 	//Then loop through initial queue once
-	while(!isEmptyQueue(q))
+	for (i = 0; i < size; i++)
 	{
 		item = dequeue(q);
-		//If its odd we dont append into the temp queue
 		if(item % 2 == 0)
-		{
-			enqueue(&tempQueue, item);
-		}
-	}
-	
-	//Then push everything from temp queue back to original q
-	while(!isEmptyQueue(&tempQueue))
-	{
-		enqueue(q, dequeue(&tempQueue));
+			enqueue(q, item);
 	}
 }
 
