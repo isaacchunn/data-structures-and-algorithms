@@ -24,6 +24,7 @@ int hasGreatGrandchild(BTNode *node);
 
 void printTree_InOrder(BTNode *node);
 void printTree_PostOrder(BTNode * node);
+void printTree_AfterDepth(BTNode * node, int currDepth, int depth);
 
 ////////////////////////////////////////////////////////////////////
 
@@ -110,6 +111,8 @@ int main(int argc, const char * argv[]){
     printf("\nthe values stored in all nodes of the tree that have at least one great-grandchild are: ");
 
     hasGreatGrandchild(root2);
+    printf("\nDepth Print: \n");
+    printTree_AfterDepth(root2, 0, 2);
 
     return 0;
 }
@@ -132,7 +135,7 @@ void mirrorTree(BTNode *node){
     node->right = temp;
 }
 
-//This means that if our height starts from -1 (the NULL nodes), we then nodes that will be comparing depth >1 will be the nodes containing the great grand childs..
+//This means that if our height starts from -1 (the NULL nodes), we then nodes that will be comparing depth >=2 will be the nodes containing the great grand childs..
 //Using calculate height method in lecture nodes for each node to get the node height
 int hasGreatGrandchild(BTNode *node){
     int l, r, height;
@@ -146,7 +149,7 @@ int hasGreatGrandchild(BTNode *node){
     //Find max of depths
     height = l > r ? l : r;
 
-    if(height > 1)
+    if(height >= 2)
         printf("%d ", node->item);
     
     return (height+1);
@@ -215,4 +218,17 @@ void printTree_PostOrder(BTNode * node)
     printTree_PostOrder(node->left);
     printTree_PostOrder(node->right);
     printf("%d, ", node->item);
+}
+
+void printTree_AfterDepth(BTNode * node, int currDepth, int depth)
+{
+    if (node == NULL)
+        return;
+    
+    printTree_AfterDepth(node->left, currDepth+ 1, depth);
+    printTree_AfterDepth(node->right, currDepth +1, depth);
+    
+    if(currDepth >= depth)
+        printf("%d ", node->item);
+    
 }
