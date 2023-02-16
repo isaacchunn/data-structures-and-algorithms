@@ -27,6 +27,7 @@ typedef struct _linkedlist
 //////////////////////// function prototypes /////////////////////////////////////
 
 // You should not change the prototype of this function
+
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2);
 
 void printList(LinkedList *ll);
@@ -101,6 +102,9 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+/// @brief Inserts nodes from the second list to the first list in alternate positions.
+/// @param ll1 Linked List 1
+/// @param ll2 Linked List 2
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
 	/* add your code here */
@@ -110,6 +114,11 @@ void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 	//Second traversal
 	ListNode * cur2 = ll2->head;
 	ListNode * temp, *temp2;
+
+		//Sanity checks
+	if(ll1 == NULL || ll2 == NULL)
+		return;
+
 	while(cur1 != NULL && cur2 != NULL)
 	{
 		//Then we want to insert it into alternate positions in list 1. This means theoretically, list 1 is a fast pointer? List 2 traversal is a slow pointer?

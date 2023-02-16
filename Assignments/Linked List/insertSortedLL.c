@@ -25,6 +25,7 @@ typedef struct _linkedlist{
 ///////////////////////// function prototypes ////////////////////////////////////
 
 //You should not change the prototype of this function
+
 int insertSortedLL(LinkedList *ll, int item);
 
 void printList(LinkedList *ll);
@@ -87,7 +88,10 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-// THE PROPER VERSION WITHOUT RELIANCE ON FUNCTIONS USE TO SOLIDIFY MY KNOWLEDGE ON LINKED LISTS.
+/// @brief Inserts an item into the linked list in ascending order (preventing duplicates)
+/// @param ll linked list
+/// @param item item to add
+/// @return -1 if function not completed successfully, else returns index of item added
 int insertSortedLL(LinkedList *ll, int item)
 {
 	/* add your code here */
@@ -97,6 +101,10 @@ int insertSortedLL(LinkedList *ll, int item)
     //So we loop through the ll first
     ListNode * curr, *newNode, *pre;
     int index = 0;
+
+	//Sanity checks
+	if(ll == NULL)
+		return -1;
 
     //Check that head is NULL or the current head item is more than the item to be added
     if(ll->head == NULL || ll->head->item > item)

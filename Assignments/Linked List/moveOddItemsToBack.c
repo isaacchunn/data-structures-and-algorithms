@@ -27,6 +27,7 @@ typedef struct _linkedlist
 //////////////////////// function prototypes /////////////////////////////////////
 
 // You should not change the prototype of this function
+
 void moveOddItemsToBack(LinkedList *ll);
 
 void printList(LinkedList *ll);
@@ -83,9 +84,13 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+/// @brief Moves all the odd items of the linkedlist to the back of the linkedlist.
+/// @param ll linked list
 void moveOddItemsToBack(LinkedList *ll)
 {
-	/* add your code here */
+	//Sanity check
+	if(ll == NULL)
+		return -1;
     //We want to mode all the odd items, so we just loop
 	ListNode * curr = ll->head;
 	ListNode * temp;

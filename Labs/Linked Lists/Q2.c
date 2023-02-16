@@ -113,6 +113,10 @@ int insertNode2(LinkedList *ll, int index, int item){
     return 0;
 }
 
+/// @brief Removes a node from the linkedlist based on index
+/// @param ll linked list
+/// @param index index to remove
+/// @return 0 if failed to remove, 1 if removed.
 int removeNode2(LinkedList *ll,int index)
 {
     /* Write your program code here */

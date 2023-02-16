@@ -25,6 +25,7 @@ typedef struct _linkedlist{
 ///////////////////////// function prototypes ////////////////////////////////////
 
 //You should not change the prototype of this function
+
 int insertSortedLL(LinkedList *ll, int item);
 
 void printList(LinkedList *ll);
@@ -88,15 +89,21 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+/// @brief Inserts an item into the linked list in ascending order (preventing duplicates)
+/// @param ll linked list
+/// @param item item to add
+/// @return -1 if function not completed successfully, else returns index of item added
 int insertSortedLL(LinkedList *ll, int item)
 {
-	/* add your code here */
     //A traversal is always necessary to check if there exists an item
     //However, if we have went above a certain number without getting an instance, then the number must not exist
     //Based on the assumption that it is always sorted or empty.
     //So we loop through the ll first
     ListNode * curr;
     int index = 0;
+
+	if(ll == NULL)
+		return -1;
 
     //Check that head is NULL or the current head item is more than the item to be added
     if(ll->head == NULL || ll->head->item > item)

@@ -118,6 +118,8 @@ int main(int argc, const char * argv[]){
     return 0;
 }
 
+/// @brief Mirrors the binary tree
+/// @param node root of the binary tree
 void mirrorTree(BTNode *node){
 
     // write your code here
@@ -136,9 +138,13 @@ void mirrorTree(BTNode *node){
     node->right = temp;
 }
 
-//This means that if our height starts from -1 (the NULL nodes), we then nodes that will be comparing depth >=2 will be the nodes containing the great grand childs..
-//Using calculate height method in lecture nodes for each node to get the node height
+/// @brief Prints all the nodes value that contains a great grand child
+/// @param node root of the binary tree
+/// @return current height of node
 int hasGreatGrandchild(BTNode *node){
+
+    //This means that if our height starts from -1 (the NULL nodes), we then nodes that will be comparing depth >=2 will be the nodes containing the great grand childs..
+    //Using calculate height method in lecture nodes for each node to get the node height
     int l, r, height;
     //We have reached a level we don't want to reach...?
     if(node == NULL)
@@ -157,6 +163,9 @@ int hasGreatGrandchild(BTNode *node){
     
 }
 
+/// @brief Prints all the values in the binary tree smaller than m
+/// @param node root node of the binary tree
+/// @param m integer to compare value against to find smaller values
 void printSmallerValues(BTNode *node, int m){
 
     // write your code here
@@ -175,6 +184,9 @@ void printSmallerValues(BTNode *node, int m){
     printSmallerValues(node->right, m);
 }
 
+/// @brief Finds the smallest value of the binary tree
+/// @param node root node of binary tree
+/// @return smallest valye in the binary tree
 int smallestValue(BTNode *node) {
     
     //If the node is null, we want to return a very large value as we want the minimum of nodes
@@ -203,6 +215,8 @@ int smallestValue(BTNode *node) {
 
 //////////////////////////////////////////////////////////////////
 
+/// @brief Prints a binary tree in order.
+/// @param node root of binary tree
 void printTree_InOrder(BTNode *node){
 
     if (node == NULL) return;
@@ -212,7 +226,8 @@ void printTree_InOrder(BTNode *node){
     return;
 }
 
-
+/// @brief Prints a binary tree in post order.
+/// @param node root of binary tree
 void printTree_PostOrder(BTNode * node)
 {
     if(node == NULL) return;
@@ -221,6 +236,10 @@ void printTree_PostOrder(BTNode * node)
     printf("%d, ", node->item);
 }
 
+/// @brief Prints the nodes after a certain depth of a binary tree
+/// @param node root of the binary tree
+/// @param currDepth currDepth of node
+/// @param depth depth to start printing the nodes
 void printTree_AfterDepth(BTNode * node, int currDepth, int depth)
 {
     if (node == NULL)
@@ -230,6 +249,5 @@ void printTree_AfterDepth(BTNode * node, int currDepth, int depth)
     printTree_AfterDepth(node->right, currDepth +1, depth);
     
     if(currDepth >= depth)
-        printf("%d ", node->item);
-    
+        printf("%d ", node->item); 
 }

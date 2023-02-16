@@ -99,6 +99,10 @@ void deleteList(ListNode **ptrHead){
     *ptrHead=NULL;
 }
 
+/// @brief Creates a duplicate of a linked list with the nodes stored in reverse
+/// @param cur head of linkd list
+/// @param ptrNewHead head of new linked list
+/// @return 0.
 int duplicateReverse(ListNode *cur,ListNode **ptrNewHead)
 {
     int index = 0;

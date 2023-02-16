@@ -126,6 +126,9 @@ int main()
 ////////////////////////////////////////////////////////////////
 //Question 1
 
+/// @brief Removes the top value of the stack until value is encountered.
+/// @param s stack
+/// @param value value to keep
 void removeUntil(Stack *s, int value){
 
 	// write your code here
@@ -150,6 +153,8 @@ void removeUntil(Stack *s, int value){
 ////////////////////////////////////////////////////////////
 //Question 2
 
+/// @brief Recursively reverses a queue.
+/// @param q queue pointer
 void recursiveReverse(Queue *q){
 
 	// write your code here
@@ -168,6 +173,9 @@ void recursiveReverse(Queue *q){
 ////////////////////////////////////////////////////////////
 //Question 3
 
+/// @brief Checks if a word is a palindrome
+/// @param word word to check
+/// @return -1 if not palindrome, 0 if palindrome.
 int palindrome(char *word){
 
 	// write your code here
@@ -227,6 +235,10 @@ int palindrome(char *word){
 ////////////////////////////////////////////////////////////
 //Question 4
 //Similar to https://leetcode.com/problems/valid-parentheses/
+
+/// @brief Checks if an expression is balanced 
+/// @param expression experession
+/// @return 1 if not balanced, 0 if balanced
 int balanced(char *expression){
 
 	// write your code here

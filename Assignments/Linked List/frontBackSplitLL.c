@@ -25,6 +25,7 @@ typedef struct _linkedlist{
 ///////////////////////// function prototypes ////////////////////////////////////
 
 // This is for question 4. You should not change the prototype of this function
+
 void frontBackSplitLinkedList(LinkedList* ll, LinkedList *resultFrontList, LinkedList *resultBackList);
 
 // You may use the following functions or you may write your own
@@ -108,16 +109,20 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+/// @brief Splits the linked list into two sublists, first half and second half
+/// @param ll Linked List
+/// @param resultFrontList First Half Linked List 
+/// @param resultBackList Second Half Linked List
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
-	/* add your code here */
-    if(ll == NULL)
-        return;
-
     //We have the size of the main linked list, so we check if it's odd first.
     int halfIndex = ll->size % 2 == 1 ? ll->size / 2 : (ll->size / 2) - 1;
     int i;
     ListNode * curr = ll->head;
+
+	//Sanity check
+    if(ll == NULL || resultFrontList == NULL || resultBackList == NULL)
+        return;
 
     for(i = 0; i < ll->size; i++)
     {

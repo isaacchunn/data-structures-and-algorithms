@@ -106,6 +106,11 @@ void deleteList(ListNode **ptrHead){
 	*ptrHead=NULL;
 }
 
+/// @brief Copies the contents of the linked list and stores even values into evenlist, odd values into oddlist
+/// @param cur head of linked list
+/// @param ptrEvenList linked lsit to store even values
+/// @param ptrOddList linked lsit to store odd values
+/// @return 1.
 int split(ListNode *cur, ListNode **ptrEvenList,ListNode **ptrOddList)
 {
     /* Write your program code here. */
@@ -132,4 +137,5 @@ int split(ListNode *cur, ListNode **ptrEvenList,ListNode **ptrOddList)
         cur = cur->next;
         indice++;
     }
+    return 1;
 }
