@@ -19,6 +19,7 @@ typedef struct _linkedlist{
 ///////////////////////// function prototypes ////////////////////////////////////
 
 // You should not change the prototype of this function
+
 void removeDuplicatesSortedLL(LinkedList *ll);
 
 void printList(LinkedList *ll);
@@ -93,6 +94,8 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+/// @brief Removes the duplicates of a sorted ll
+/// @param ll linkedlist
 void removeDuplicatesSortedLL(LinkedList *ll)
 {
 	/* add your code here */

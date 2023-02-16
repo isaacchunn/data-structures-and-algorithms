@@ -21,6 +21,7 @@ typedef struct _linkedlist
 //////////////////////// function prototypes /////////////////////////////////////
 
 // You should not change the prototype of this function
+
 void moveEvenItemsToBack(LinkedList *ll);
 
 void printList(LinkedList *ll);
@@ -85,6 +86,8 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+/// @brief Moves the even items of the linkedlist to back of linkedlist
+/// @param ll linkedlist
 void moveEvenItemsToBack(LinkedList *ll)
 {
 	/* add your code here */

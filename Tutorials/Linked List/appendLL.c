@@ -21,6 +21,7 @@ typedef struct _linkedlist
 //////////////////////// function prototypes /////////////////////////////////////
 
 // This is for question 2. You should not change the prototype of this function
+
 void appendLL(LinkedList *ll_a , LinkedList *ll_b);
 
 void printList(LinkedList *ll);
@@ -114,6 +115,9 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+/// @brief Appends ll_b into ll_a
+/// @param ll_a linkedlist a
+/// @param ll_b linkedlist b
 void appendLL(LinkedList *ll_a , LinkedList *ll_b)
 {
     /*add your code here */

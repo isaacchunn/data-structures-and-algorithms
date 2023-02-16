@@ -21,6 +21,7 @@ typedef struct _linkedlist
 //////////////////////// function prototypes /////////////////////////////////////
 
 // You should not change the prototype of this function
+
 int moveMaxToFront(ListNode **ptrHead);
 
 void printList(LinkedList *ll);
@@ -85,6 +86,9 @@ int main()
 
 ////////////////////////////////////////////////////////////////////////
 
+/// @brief Moves max value of linkedlist to the front of linked list
+/// @param ptrHead head of linkedlist
+/// @return 0 if the max value is already head, 1 if we moved it successfully.
 int moveMaxToFront(ListNode **ptrHead)
 {
     if(*ptrHead == NULL)

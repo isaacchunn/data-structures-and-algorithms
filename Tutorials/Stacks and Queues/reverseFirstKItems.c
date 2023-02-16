@@ -32,6 +32,7 @@ typedef struct _queue{
 ///////////////////////// function prototypes ////////////////////////////////////
 
 // You should not change the prototypes of these functions
+
 void reverseFirstKItems(Queue *q, int k);
 
 void push(Stack *s, int item);
@@ -113,7 +114,9 @@ int main()
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+/// @brief Reverses the first k items in a queue
+/// @param q queue
+/// @param k first k items to reverse
 void reverseFirstKItems(Queue *q, int k)
 {
     /* add your code here */

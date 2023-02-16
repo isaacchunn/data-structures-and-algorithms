@@ -93,6 +93,8 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+/// @brief Traverses a binary tree in level order and prints out the values using a queue
+/// @param root root of binary tree
 void levelOrderTraversal(BSTNode* root)
 {
     //Create an empty queue q

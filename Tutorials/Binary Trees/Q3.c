@@ -91,6 +91,8 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+/// @brief Traverses and prints the binary tree out in pre-order iteratively.
+/// @param root root of binary tree.
 void preOrderIterative(BSTNode *root)
 {
     //Declare an empty stack

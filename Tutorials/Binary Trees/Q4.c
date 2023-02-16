@@ -88,6 +88,9 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+/// @brief Finds the max depth of the binary tree
+/// @param node root of binary tree
+/// @return depth of tree
 int maxDepth(BTNode *node)
 {
     /* add your code here */

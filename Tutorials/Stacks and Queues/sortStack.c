@@ -32,6 +32,7 @@ typedef struct _queue{
 ///////////////////////// function prototypes ////////////////////////////////////
 
 // You should not change the prototypes of these functions
+
 void sortStack(Stack *s);
 
 void push(Stack *s, int item);
@@ -108,6 +109,8 @@ int main()
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+/// @brief Sorts the stack in ascending order
+/// @param s Stack
 void sortStack(Stack *s)
 {
     if(isEmptyStack(s))

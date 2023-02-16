@@ -32,6 +32,7 @@ typedef struct _queue{
 ///////////////////////// function prototypes ////////////////////////////////////
 
 // You should not change the prototypes of these functions
+
 void reverseStack(Stack *s);
 
 void push(Stack *s, int item);
