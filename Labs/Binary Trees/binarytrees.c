@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#define INT_MAX 9999999
 
 ////////////////////////////////////////////////////////////////////
 
@@ -178,14 +179,14 @@ int smallestValue(BTNode *node) {
     
     //If the node is null, we want to return a very large value as we want the minimum of nodes
     if(node == NULL)
-        return 999999;
+        return INT_MAX;
     
     //Then we try conduct depth first to get the bottom nodes and propagate upwards
     int data = node->item;
     int l = smallestValue(node->left);
     int r = smallestValue(node->right);
     
-    //Do some min cheecking to find minimum of three values
+    //Do some min checking to find minimum of three values
     if (l < data)
     {
         //If l lesser than data
