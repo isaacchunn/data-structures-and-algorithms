@@ -139,6 +139,7 @@ int identical(BTNode *tree1, BTNode *tree2)
     
     //This means not identical, and it will propagate upwards till the root since the above condition will never pass as it is reliant on l and r.
     return 0;
+    //Alternativey, can just return the statement in if statement itself.
 }
 
 /////////////////////////////////////////////////////////////////////////////////
