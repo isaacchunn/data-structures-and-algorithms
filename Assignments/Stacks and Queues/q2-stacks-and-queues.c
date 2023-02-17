@@ -108,42 +108,49 @@ int main()
 
 void createStackFromLinkedList(LinkedList *ll, Stack *s)
 {
-	//add your code here
-	ListNode * curr = ll->head;
+	//Variable initialization
+	ListNode * curr;
+	//Sanity check
+	if(ll == NULL || s == NULL)
+		return;
+	
+	//Else we can assign and empty the stack
+	curr = ll->head;
 	//Empty the stack
-	removeAllItemsFromStack(s);
+	removeEvenValues(s);
 
-	//Traverse and push into the stack
+	//Then traverse and push into the stack
 	while(curr != NULL)
 	{
-		push(s, curr->item);
+		push(s,curr->item);
 		curr = curr->next;
 	}
-
 }
 
 void removeEvenValues(Stack *s)
 {
-	// add your code here
 	//Store another stack so the order is maintained
 	Stack tempStack;
 	int item;
-
-	//Initialization of values
+	//Sanity checks
+	if(s == NULL)
+		return;
+	
+	//Else initialize the temp stack
 	tempStack.ll.head = NULL;
 	tempStack.ll.size = 0;
 
+	//Then while not empty stack, pop and push into temp stack
 	while(!isEmptyStack(s))
 	{
 		item = pop(s);
+		//We want to keep odd values
 		if(item % 2 == 1)
 		{
-			//If odd, push into temp stack
 			push(&tempStack, item);
 		}
 	}
-
-	//Then push everything from temp stack
+	//Then put everything back from temp stack into the original stack
 	while(!isEmptyStack(&tempStack))
 	{
 		push(s, pop(&tempStack));

@@ -108,11 +108,13 @@ int main()
 
 void reverse(Queue *q)
 {
-    // add your code here
-	//Put everything into a stack, and then enqueue back into the queue
-	Stack s;
-
-	//Initialization of values
+	//Variable declaration
+    Stack s;
+	//Sanity check
+	if(q == NULL)
+		return;
+	
+	//Variable initialization
 	s.ll.head = NULL;
 	s.ll.tail = NULL;
 	s.ll.size = 0;

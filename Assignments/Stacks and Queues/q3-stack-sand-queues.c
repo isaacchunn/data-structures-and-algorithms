@@ -100,28 +100,26 @@ int main()
 
 int isStackPairwiseConsecutive(Stack *s)
 {
-  // add your code here
+	//Variable declaration
 	int item1, item2;
-	//If the stack is null in the first place, then return
-	if(s == NULL || isEmptyStack(s))
+	//If the check is null or if the stack is empty, then return 0 by default.
+	if(s== NULL || isEmptyStack(s))
 		return 0;
-
-	//Then it must remain that the size of the stack must be even for it to be "pairwise consecutive"
+	
+	//Then it must remain that the size of the stack must be even
 	if(s->ll.size % 2 == 1)
 		return 0;
 
-	//Else it is assumed that the stacks are in sizes of multiples of 2.
+	//Else it is assumed that the stacks are in sizes of multiples of 2, so we can do our comparison.
 	while(!isEmptyStack(s))
 	{
 		item1 = pop(s);
 		item2 = pop(s);
-
-		//We must check if the first popped item is larger than item 2, and abs value between them is 1
-		if(item1 <= item2 || item1 - item2 != 1)
+		//Then we check if they are paiwise consecutive by using abs value
+		if(abs(item1 - item2) != 1)
 			return 0;
 	}
-
-	//Default run
+	//Else its pairwise consecutive, and we can return 1
 	return 1;
 }
 

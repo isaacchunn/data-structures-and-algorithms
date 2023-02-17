@@ -112,14 +112,19 @@ int main()
 
 void createQueueFromLinkedList(LinkedList *ll, Queue *q)
 {
-	//Then recreate the queue based off the ll
-	ListNode * curr = ll->head;
-	//Remove everything f rom the queue
+	//Variable declaration
+	ListNode * curr;
+	//Sanity check
+	if(ll == NULL || q == NULL)
+		return;
+	//Else we can create a queue from the linked list
+	curr = ll->head;
+	//Remove everything from the queue
 	removeAllItemsFromQueue(q);
-	//Traverse the list
+	//Traverse the list and enqueue each element in linkedlist into ll
 	while(curr != NULL)
 	{
-		//Enqueue into the queue each ele,ent
+		//Enqueue into the queue each element
 		enqueue(q, curr->item);
 		curr = curr->next;
 	}
@@ -127,15 +132,19 @@ void createQueueFromLinkedList(LinkedList *ll, Queue *q)
 
 void removeOddValues(Queue *q)
 {
-	//add your code here
-	int item, i;
-	int size = q->ll.size;
+	//Variable declaration
+	int item, i, size;
+	//Sanity check
 	if(q == NULL)
 		return;
-	//Then loop through initial queue once
-	for (i = 0; i < size; i++)
+		
+	//Assign size
+	size = q->ll.size;
+	//Else, we loop through the initial queue once
+	for(i = 0; i < size; i++)
 	{
 		item = dequeue(q);
+		//If item is even, we put it back into the queue, else the reference is gone.
 		if(item % 2 == 0)
 			enqueue(q, item);
 	}
