@@ -435,10 +435,48 @@ int concatenate(ListNode **ptrHead1, ListNode *head2){
 	return 0;
 }
 
-
+/// @brief combines two linked lists into a new one
+/// @param ptrHead head of combined list
+/// @param head1 head of source linkedlist1
+/// @param head2 head of source linkedlist 2
+/// @return 0 if it completes successfully and -1 otherwise
 int combineAlternating(ListNode **ptrHead, ListNode *head1, ListNode *head2){
 
-	
+	//Variable declaration
+	ListNode * curr, *curr2;
+	int index = 0, even = 1;
+	//Sanity check
+	if(ptrHead == NULL || head1 == NULL || head2 == NULL)
+		return -1;
+	//Variable initialization
+	curr = head1;
+	curr2 = head2;
+	//Until one terminates
+	while(curr != NULL && curr2 != NULL)
+	{
+		if(even == 1)
+		{
+			insertNode(ptrHead, index++, curr->num);
+			curr = curr->next;
+		}
+		else
+		{
+			insertNode(ptrHead, index++, curr2->num);
+			curr2 = curr2->next;
+		}
+		even = -even;
+	}
+	//Then do while and insert all, one of them has already reached end or both reached end
+	while(curr != NULL)
+	{
+		insertNode(ptrHead, index++, curr->num);
+		curr = curr->next;
+	}
+	while(curr2 != NULL)
+	{
+		insertNode(ptrHead, index++, curr2->num);
+		curr2 = curr2->next;
+	}
 	return 0;
 }
 
