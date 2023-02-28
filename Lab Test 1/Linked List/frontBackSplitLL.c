@@ -2,7 +2,7 @@
 
 /* SC1007: Data Structures and Algorithms
 Assignment 1 - Linked List Questions
-Purpose: Implementing the required functions for Question 3 */
+Purpose: Implementing the required functions for Question 4 */
 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -11,125 +11,143 @@ Purpose: Implementing the required functions for Question 3 */
 
 //////////////////////////////////////////////////////////////////////////////////
 
-typedef struct _listnode
-{
+typedef struct _listnode{
 	int item;
 	struct _listnode *next;
 } ListNode;			// You should not change the definition of ListNode
 
-typedef struct _linkedlist
-{
+typedef struct _linkedlist{
 	int size;
 	ListNode *head;
 } LinkedList;			// You should not change the definition of LinkedList
 
 
-//////////////////////// function prototypes /////////////////////////////////////
+///////////////////////// function prototypes ////////////////////////////////////
 
-// You should not change the prototype of this function
+// This is for question 4. You should not change the prototype of this function
 
-void moveOddItemsToBack(LinkedList *ll);
+void frontBackSplitLinkedList(LinkedList* ll, LinkedList *resultFrontList, LinkedList *resultBackList);
 
+// You may use the following functions or you may write your own
 void printList(LinkedList *ll);
-void removeAllItems(LinkedList *ll);
+void removeAllItems(LinkedList *l);
 ListNode * findNode(LinkedList *ll, int index);
 int insertNode(LinkedList *ll, int index, int value);
 int removeNode(LinkedList *ll, int index);
 
-//////////////////////////// main() //////////////////////////////////////////////
+
+///////////////////////////// main() /////////////////////////////////////////////
 
 int main()
 {
+	int c, i;
 	LinkedList ll;
-	int c, i, j;
-	c = 1;
-	//Initialize the linked list 1 as an empty linked list
+	LinkedList resultFrontList, resultBackList;
+
+	//Initialize the linked list as an empty linked list
 	ll.head = NULL;
 	ll.size = 0;
 
+	//Initialize the front linked list as an empty linked list
+	resultFrontList.head = NULL;
+	resultFrontList.size = 0;
+
+	// Initialize the back linked list as an empty linked list
+	resultBackList.head = NULL;
+	resultBackList.size = 0;
+
 	printf("1: Insert an integer to the linked list:\n");
-	printf("2: Move all odd integers to the back of the linked list:\n");
+	printf("2: Print the linked list:\n");
+	printf("3: Split the linked list into two linked lists, frontList and backList:\n");
 	printf("0: Quit:\n");
+	printf("Please input your choice(1/2/3/0): ");
+	scanf("%d", &c);
 
 	while (c != 0)
 	{
-		printf("Please input your choice(1/2/0): ");
-		scanf("%d", &c);
-
 		switch (c)
 		{
 		case 1:
 			printf("Input an integer that you want to add to the linked list: ");
 			scanf("%d", &i);
-			j = insertNode(&ll, ll.size, i);
+			insertNode(&ll, ll.size, i);
 			printf("The resulting linked list is: ");
 			printList(&ll);
 			break;
 		case 2:
-			moveOddItemsToBack(&ll); // You need to code this function
-			printf("The resulting linked list after moving odd integers to the back of the linked list is: ");
+			printf("The resulting linked list is: ");
 			printList(&ll);
+			break;
+		case 3:
+			printf("The resulting linked lists after splitting the given linked list are:\n");
+			frontBackSplitLinkedList(&ll, &resultFrontList, &resultBackList); // You need to code this function
+			printf("Front linked list: ");
+			printList(&resultFrontList);
+			printf("Back linked list: ");
+			printList(&resultBackList);
+			printf("\n");
 			removeAllItems(&ll);
+			removeAllItems(&resultFrontList);
+			removeAllItems(&resultBackList);
 			break;
 		case 0:
 			removeAllItems(&ll);
+			removeAllItems(&resultFrontList);
+			removeAllItems(&resultBackList);
 			break;
 		default:
 			printf("Choice unknown;\n");
 			break;
 		}
+
+		printf("\nPlease input your choice(1/2/3/0): ");
+		scanf("%d", &c);
 	}
+
 	return 0;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
 
-/// @brief Moves all the odd items of the linkedlist to the back of the linkedlist.
+/// @brief Splits a singly linked list into two sublists, one for the front life, one for the back half
 /// @param ll linked list
-void moveOddItemsToBack(LinkedList *ll)
+/// @param resultFrontList result front list 
+/// @param resultBackList  result back list
+void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
-	//Sanity check
-	if(ll == NULL)
-		return;
-    //We want to mode all the odd items, so we just loop
-	ListNode * curr = ll->head;
-	ListNode * temp;
-	int i;
-	int size = ll->size;
-	int index = 0, item = 0;
-	for(i = 0; i < size; i++)
-	{
-		if(curr->item % 2 == 1)
-		{		
-			//Store the current item and the current next as we are deleting the curr
-			item = curr->item;
-			//Store the next for the curr to traverse
-			temp = curr->next;		
-			//Remove the current node at the index
-			removeNode(ll,index);
-			//Then insert node at the back
-			insertNode(ll, ll->size, item);
-			//Then update curr
-			curr = temp;
-		}
-		else
-		{
-			//Else it's safe to just go next on curr, as well as increment the "safe index" for deletion
-			curr = curr->next;
-			index++;
-		}
-	}
+    //Variable declaration
+    ListNode * curr;
+    int size, i, halfIndex;
+    //Sanity check
+	if(ll == NULL || resultFrontList == NULL || resultBackList == NULL)
+        return;
+
+    //Variable initialisation   
+    curr = ll->head;
+    size = ll->size;
+    halfIndex = size % 2 ? (size/2) + 1 : size/2;
+    for(i = 0; i < size; i++)
+    {
+        if(i < halfIndex)
+        {
+            insertNode(resultFrontList,i,curr->item);
+        }
+        else
+        {
+            insertNode(resultBackList,i - halfIndex,curr->item);
+        }
+        curr = curr->next;
+    }
 }
 
-///////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
 
-void printList(LinkedList *ll){
-
+void printList(LinkedList *ll)
+{
 	ListNode *cur;
 	if (ll == NULL)
 		return;
 	cur = ll->head;
-
 	if (cur == NULL)
 		printf("Empty");
 	while (cur != NULL)
@@ -139,7 +157,6 @@ void printList(LinkedList *ll){
 	}
 	printf("\n");
 }
-
 
 void removeAllItems(LinkedList *ll)
 {
@@ -155,9 +172,8 @@ void removeAllItems(LinkedList *ll)
 	ll->size = 0;
 }
 
-
-ListNode *findNode(LinkedList *ll, int index){
-
+ListNode * findNode(LinkedList *ll, int index)
+{
 	ListNode *temp;
 
 	if (ll == NULL || index < 0 || index >= ll->size)
@@ -178,8 +194,8 @@ ListNode *findNode(LinkedList *ll, int index){
 	return temp;
 }
 
-int insertNode(LinkedList *ll, int index, int value){
-
+int insertNode(LinkedList *ll, int index, int value)
+{
 	ListNode *pre, *cur;
 
 	if (ll == NULL || index < 0 || index > ll->size)
@@ -210,9 +226,8 @@ int insertNode(LinkedList *ll, int index, int value){
 	return -1;
 }
 
-
-int removeNode(LinkedList *ll, int index){
-
+int removeNode(LinkedList *ll, int index)
+{
 	ListNode *pre, *cur;
 
 	// Highest index we can remove is size-1

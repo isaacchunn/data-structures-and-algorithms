@@ -27,7 +27,6 @@ typedef struct _linkedlist
 //////////////////////// function prototypes /////////////////////////////////////
 
 // You should not change the prototype of this function
-
 void moveOddItemsToBack(LinkedList *ll);
 
 void printList(LinkedList *ll);
@@ -46,6 +45,7 @@ int main()
 	//Initialize the linked list 1 as an empty linked list
 	ll.head = NULL;
 	ll.size = 0;
+
 
 	printf("1: Insert an integer to the linked list:\n");
 	printf("2: Move all odd integers to the back of the linked list:\n");
@@ -84,41 +84,44 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
-/// @brief Moves all the odd items of the linkedlist to the back of the linkedlist.
+/// @brief Moves the odd items in a linked list to the back
 /// @param ll linked list
 void moveOddItemsToBack(LinkedList *ll)
 {
+    //Variable declaration
+    ListNode * curr;
+    int size, i, item, index;
 	//Sanity check
-	if(ll == NULL)
-		return;
-    //We want to mode all the odd items, so we just loop
-	ListNode * curr = ll->head;
-	ListNode * temp;
-	int i;
-	int size = ll->size;
-	int index = 0, item = 0;
-	for(i = 0; i < size; i++)
-	{
-		if(curr->item % 2 == 1)
-		{		
-			//Store the current item and the current next as we are deleting the curr
-			item = curr->item;
-			//Store the next for the curr to traverse
-			temp = curr->next;		
-			//Remove the current node at the index
-			removeNode(ll,index);
-			//Then insert node at the back
-			insertNode(ll, ll->size, item);
-			//Then update curr
-			curr = temp;
-		}
-		else
-		{
-			//Else it's safe to just go next on curr, as well as increment the "safe index" for deletion
-			curr = curr->next;
-			index++;
-		}
-	}
+    if(ll== NULL)
+        return;
+    
+    //Set to curr
+    curr = ll->head;
+    size = ll->size;
+    index = 0;
+
+    //Check if the current null
+    if(curr == NULL)
+        return;
+
+    for(i = 0; i < size; i++)
+    {
+        //Check if current item is odd
+        if(curr->item % 2 == 1)
+        {
+            item = curr->item;
+            curr = curr->next;
+            removeNode(ll,index);
+            //Then insert at the back
+            insertNode(ll,ll->size,item);
+        }
+        else
+        {
+            index++;
+            curr = curr->next;
+        }
+
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

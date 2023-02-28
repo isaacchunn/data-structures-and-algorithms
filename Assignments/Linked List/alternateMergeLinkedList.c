@@ -110,14 +110,17 @@ void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 	/* add your code here */
 	//We can only inderst node of second list into alternate positions
 	//We have a counter, and a fast and slow pointer
-	ListNode * cur1 = ll1->head;
+	ListNode * cur1;
 	//Second traversal
-	ListNode * cur2 = ll2->head;
+	ListNode * cur2;
 	ListNode * temp, *temp2;
 
 		//Sanity checks
 	if(ll1 == NULL || ll2 == NULL)
 		return;
+
+	cur1 = ll2->head;
+	cur2 = ll2->head;
 
 	while(cur1 != NULL && cur2 != NULL)
 	{

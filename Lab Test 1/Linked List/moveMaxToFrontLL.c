@@ -1,11 +1,5 @@
 //////////////////////////////////////////////////////////////////////////////////
 
-/* SC1007: Data Structures and Algorithms
-Assignment 1 - Linked List Questions
-Purpose: Implementing the required functions for Question 3 */
-
-//////////////////////////////////////////////////////////////////////////////////
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -27,8 +21,7 @@ typedef struct _linkedlist
 //////////////////////// function prototypes /////////////////////////////////////
 
 // You should not change the prototype of this function
-
-void moveOddItemsToBack(LinkedList *ll);
+int moveMaxToFront(ListNode **ptrHead);
 
 void printList(LinkedList *ll);
 void removeAllItems(LinkedList *ll);
@@ -36,19 +29,22 @@ ListNode * findNode(LinkedList *ll, int index);
 int insertNode(LinkedList *ll, int index, int value);
 int removeNode(LinkedList *ll, int index);
 
+
 //////////////////////////// main() //////////////////////////////////////////////
 
 int main()
 {
-	LinkedList ll;
 	int c, i, j;
 	c = 1;
+
+	LinkedList ll;
 	//Initialize the linked list 1 as an empty linked list
 	ll.head = NULL;
 	ll.size = 0;
 
+
 	printf("1: Insert an integer to the linked list:\n");
-	printf("2: Move all odd integers to the back of the linked list:\n");
+	printf("2: Move the largest stored value to the front of the list:\n");
 	printf("0: Quit:\n");
 
 	while (c != 0)
@@ -61,13 +57,13 @@ int main()
 		case 1:
 			printf("Input an integer that you want to add to the linked list: ");
 			scanf("%d", &i);
-			j = insertNode(&ll, ll.size, i);
+			j=insertNode(&ll, ll.size, i);
 			printf("The resulting linked list is: ");
 			printList(&ll);
 			break;
 		case 2:
-			moveOddItemsToBack(&ll); // You need to code this function
-			printf("The resulting linked list after moving odd integers to the back of the linked list is: ");
+			moveMaxToFront(&(ll.head));  // You need to code this function
+			printf("The resulting linked list after moving largest stored value to the front of the list is: ");
 			printList(&ll);
 			removeAllItems(&ll);
 			break;
@@ -82,46 +78,30 @@ int main()
 	return 0;
 }
 
-//////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
 
-/// @brief Moves all the odd items of the linkedlist to the back of the linkedlist.
-/// @param ll linked list
-void moveOddItemsToBack(LinkedList *ll)
+/// @brief Moves the max node of the linked list to the front
+/// @param ptrHead pointer to pointer head
+/// @return 0 if unsuccessful, 1 if successful.
+int moveMaxToFront(ListNode **ptrHead)
 {
-	//Sanity check
-	if(ll == NULL)
-		return;
-    //We want to mode all the odd items, so we just loop
-	ListNode * curr = ll->head;
-	ListNode * temp;
-	int i;
-	int size = ll->size;
-	int index = 0, item = 0;
-	for(i = 0; i < size; i++)
-	{
-		if(curr->item % 2 == 1)
-		{		
-			//Store the current item and the current next as we are deleting the curr
-			item = curr->item;
-			//Store the next for the curr to traverse
-			temp = curr->next;		
-			//Remove the current node at the index
-			removeNode(ll,index);
-			//Then insert node at the back
-			insertNode(ll, ll->size, item);
-			//Then update curr
-			curr = temp;
-		}
-		else
-		{
-			//Else it's safe to just go next on curr, as well as increment the "safe index" for deletion
-			curr = curr->next;
-			index++;
-		}
-	}
+    //Variable declaration
+    ListNode * curr;
+    int min;
+    //Sanity check
+    if(*ptrHead == NULL)
+        return 0;
+    //Variable initialization
+    curr = *ptrHead;
+    //Do looping
+    while(curr != NULL)
+    {
+
+        curr = curr->next;
+    }    
 }
 
-///////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
 
 void printList(LinkedList *ll){
 
@@ -140,23 +120,7 @@ void printList(LinkedList *ll){
 	printf("\n");
 }
 
-
-void removeAllItems(LinkedList *ll)
-{
-	ListNode *cur = ll->head;
-	ListNode *tmp;
-
-	while (cur != NULL){
-		tmp = cur->next;
-		free(cur);
-		cur = tmp;
-	}
-	ll->head = NULL;
-	ll->size = 0;
-}
-
-
-ListNode *findNode(LinkedList *ll, int index){
+ListNode * findNode(LinkedList *ll, int index){
 
 	ListNode *temp;
 
@@ -182,7 +146,7 @@ int insertNode(LinkedList *ll, int index, int value){
 
 	ListNode *pre, *cur;
 
-	if (ll == NULL || index < 0 || index > ll->size)
+	if (ll == NULL || index < 0 || index > ll->size + 1)
 		return -1;
 
 	// If empty list or inserting first node, need to update head pointer
@@ -244,4 +208,18 @@ int removeNode(LinkedList *ll, int index){
 	}
 
 	return -1;
+}
+
+void removeAllItems(LinkedList *ll)
+{
+	ListNode *cur = ll->head;
+	ListNode *tmp;
+
+	while (cur != NULL){
+		tmp = cur->next;
+		free(cur);
+		cur = tmp;
+	}
+	ll->head = NULL;
+	ll->size = 0;
 }

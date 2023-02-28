@@ -1,11 +1,5 @@
 //////////////////////////////////////////////////////////////////////////////////
 
-/* SC1007: Data Structures and Algorithms
-Assignment 1 - Linked List Questions
-Purpose: Implementing the required functions for Question 3 */
-
-//////////////////////////////////////////////////////////////////////////////////
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -27,8 +21,7 @@ typedef struct _linkedlist
 //////////////////////// function prototypes /////////////////////////////////////
 
 // You should not change the prototype of this function
-
-void moveOddItemsToBack(LinkedList *ll);
+void moveEvenItemsToBack(LinkedList *ll);
 
 void printList(LinkedList *ll);
 void removeAllItems(LinkedList *ll);
@@ -47,8 +40,9 @@ int main()
 	ll.head = NULL;
 	ll.size = 0;
 
+
 	printf("1: Insert an integer to the linked list:\n");
-	printf("2: Move all odd integers to the back of the linked list:\n");
+	printf("2: Move all even integers to the back of the linked list:\n");
 	printf("0: Quit:\n");
 
 	while (c != 0)
@@ -66,8 +60,8 @@ int main()
 			printList(&ll);
 			break;
 		case 2:
-			moveOddItemsToBack(&ll); // You need to code this function
-			printf("The resulting linked list after moving odd integers to the back of the linked list is: ");
+			moveEvenItemsToBack(&ll); // You need to code this function
+			printf("The resulting linked list after moving even integers to the back of the linked list is: ");
 			printList(&ll);
 			removeAllItems(&ll);
 			break;
@@ -84,41 +78,36 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
-/// @brief Moves all the odd items of the linkedlist to the back of the linkedlist.
+/// @brief Moves the even numbers of the linked list to the back of the ll
 /// @param ll linked list
-void moveOddItemsToBack(LinkedList *ll)
+void moveEvenItemsToBack(LinkedList *ll)
 {
+    //Variable declaration
+    ListNode * curr;
+    int item, size, i, index;
 	//Sanity check
-	if(ll == NULL)
-		return;
-    //We want to mode all the odd items, so we just loop
-	ListNode * curr = ll->head;
-	ListNode * temp;
-	int i;
-	int size = ll->size;
-	int index = 0, item = 0;
-	for(i = 0; i < size; i++)
-	{
-		if(curr->item % 2 == 1)
-		{		
-			//Store the current item and the current next as we are deleting the curr
-			item = curr->item;
-			//Store the next for the curr to traverse
-			temp = curr->next;		
-			//Remove the current node at the index
-			removeNode(ll,index);
-			//Then insert node at the back
-			insertNode(ll, ll->size, item);
-			//Then update curr
-			curr = temp;
-		}
-		else
-		{
-			//Else it's safe to just go next on curr, as well as increment the "safe index" for deletion
-			curr = curr->next;
-			index++;
-		}
-	}
+    if(ll == NULL)
+        return;  
+    //Varible initialization
+    curr = ll->head;
+    size = ll->size;
+    index = 0;
+
+    for (i = 0; i < size; i++)
+    {
+        if(curr->item % 2 == 0)
+        {
+            item = curr->item;
+            curr = curr->next;
+            removeNode(ll,index);
+            insertNode(ll,ll->size, item);
+        }
+        else
+        {
+            index++;
+            curr = curr->next;
+        }
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -182,7 +171,7 @@ int insertNode(LinkedList *ll, int index, int value){
 
 	ListNode *pre, *cur;
 
-	if (ll == NULL || index < 0 || index > ll->size)
+	if (ll == NULL || index < 0 || index > ll->size + 1)
 		return -1;
 
 	// If empty list or inserting first node, need to update head pointer

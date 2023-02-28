@@ -98,25 +98,26 @@ int main()
 /// @param ll linkedlist
 void removeDuplicatesSortedLL(LinkedList *ll)
 {
-	/* add your code here */
-    //Traverse the ll, and check next
-    ListNode * curr = ll->head;
-    ListNode * temp;
-    while(curr)
+    //Variable declaration
+	ListNode * curr, *temp;
+    //Sanity check
+    if(ll == NULL)
+        return;
+    //Variable declaration
+    curr = ll->head;
+    while(curr != NULL)
     {
-        //Check if next is NULL, if not we compare values, and we can delete next
         if(curr->next != NULL && curr->next->item == curr->item)
         {
             temp = curr->next;
-            //We have to remove next
             curr->next = curr->next->next;
-            //Then we free curr->next;
             free(temp);
-			//Reduce size
-			ll->size--;
+            ll->size--;
         }
-        //Go next
-        curr = curr->next;
+        else
+        {
+            curr = curr->next;
+        }
     }
 }
 ///////////////////////////////////////////////////////////////////////////////////

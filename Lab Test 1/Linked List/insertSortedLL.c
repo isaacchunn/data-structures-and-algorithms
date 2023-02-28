@@ -2,7 +2,7 @@
 
 /* SC1007: Data Structures and Algorithms
 Assignment 1 - Linked List Questions
-Purpose: Implementing the required functions for Question 3 */
+Purpose: Implementing the required functions for Question 1 */
 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -11,30 +11,28 @@ Purpose: Implementing the required functions for Question 3 */
 
 //////////////////////////////////////////////////////////////////////////////////
 
-typedef struct _listnode
-{
+typedef struct _listnode{
 	int item;
 	struct _listnode *next;
 } ListNode;			// You should not change the definition of ListNode
 
-typedef struct _linkedlist
-{
+typedef struct _linkedlist{
 	int size;
 	ListNode *head;
 } LinkedList;			// You should not change the definition of LinkedList
 
 
-//////////////////////// function prototypes /////////////////////////////////////
+///////////////////////// function prototypes ////////////////////////////////////
 
-// You should not change the prototype of this function
-
-void moveOddItemsToBack(LinkedList *ll);
+//You should not change the prototype of this function
+int insertSortedLL(LinkedList *ll, int item);
 
 void printList(LinkedList *ll);
 void removeAllItems(LinkedList *ll);
-ListNode * findNode(LinkedList *ll, int index);
+ListNode *findNode(LinkedList *ll, int index);
 int insertNode(LinkedList *ll, int index, int value);
 int removeNode(LinkedList *ll, int index);
+
 
 //////////////////////////// main() //////////////////////////////////////////////
 
@@ -43,17 +41,19 @@ int main()
 	LinkedList ll;
 	int c, i, j;
 	c = 1;
+
 	//Initialize the linked list 1 as an empty linked list
 	ll.head = NULL;
 	ll.size = 0;
 
-	printf("1: Insert an integer to the linked list:\n");
-	printf("2: Move all odd integers to the back of the linked list:\n");
-	printf("0: Quit:\n");
+	printf("1: Insert an integer to the sorted linked list:\n");
+	printf("2: Print the index of the most recent input value:\n");
+	printf("3: Print sorted linked list:\n");
+	printf("0: Quit:");
 
 	while (c != 0)
 	{
-		printf("Please input your choice(1/2/0): ");
+		printf("\nPlease input your choice(1/2/3/0): ");
 		scanf("%d", &c);
 
 		switch (c)
@@ -61,13 +61,15 @@ int main()
 		case 1:
 			printf("Input an integer that you want to add to the linked list: ");
 			scanf("%d", &i);
-			j = insertNode(&ll, ll.size, i);
+			j = insertSortedLL(&ll, i);
 			printf("The resulting linked list is: ");
 			printList(&ll);
 			break;
 		case 2:
-			moveOddItemsToBack(&ll); // You need to code this function
-			printf("The resulting linked list after moving odd integers to the back of the linked list is: ");
+			printf("The value %d was added at index %d\n", i, j);
+			break;
+		case 3:
+			printf("The resulting sorted linked list is: ");
 			printList(&ll);
 			removeAllItems(&ll);
 			break;
@@ -78,47 +80,64 @@ int main()
 			printf("Choice unknown;\n");
 			break;
 		}
+
+
 	}
 	return 0;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
 
-/// @brief Moves all the odd items of the linkedlist to the back of the linkedlist.
+/// @brief Inserts a node while maintaining the sorted ascending order
 /// @param ll linked list
-void moveOddItemsToBack(LinkedList *ll)
+/// @param item item to insert
+/// @return -1 if the function was not completed, index of item if completed
+int insertSortedLL(LinkedList *ll, int item)
 {
+    //Declare variables
+    ListNode * curr;
+    int index;
 	//Sanity check
-	if(ll == NULL)
-		return;
-    //We want to mode all the odd items, so we just loop
-	ListNode * curr = ll->head;
-	ListNode * temp;
-	int i;
-	int size = ll->size;
-	int index = 0, item = 0;
-	for(i = 0; i < size; i++)
-	{
-		if(curr->item % 2 == 1)
-		{		
-			//Store the current item and the current next as we are deleting the curr
-			item = curr->item;
-			//Store the next for the curr to traverse
-			temp = curr->next;		
-			//Remove the current node at the index
-			removeNode(ll,index);
-			//Then insert node at the back
-			insertNode(ll, ll->size, item);
-			//Then update curr
-			curr = temp;
-		}
-		else
-		{
-			//Else it's safe to just go next on curr, as well as increment the "safe index" for deletion
-			curr = curr->next;
-			index++;
-		}
-	}
+    if(ll == NULL)
+        return -1;
+
+    //Initialize curr
+    curr = ll->head;
+    //Start at 1 as we account for head next.
+    index = 1;
+    //If the head is NULL, we can just insert at the front
+    //Or if the item is smaller than the current head item
+    if(ll->head == NULL || ll->head->item > item)
+    {
+        insertNode(ll,0,item);
+        return 0;
+    }
+    else
+    {
+        //Else is not empty, so we iterate and check the list
+        while(curr != NULL)
+        {
+            //Check if the current item is equal!
+            if(curr->item == item)
+            {
+                //Then the item already exists, so return -1
+                return -1;
+            }
+            else if (curr->next != NULL && curr->next->item > item)
+            {
+                //If current next is not null, and the next item is larger, that means we must place it in this spot
+                insertNode(ll,index,item);
+                return index;
+            }
+            //Increment index and go next!
+            index++;
+            curr = curr->next;
+        }
+
+        //If it reaches here, then the node should jsut be at the last index
+        insertNode(ll,ll->size,item);
+    }
+    
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

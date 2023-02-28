@@ -119,7 +119,6 @@ int insertNode2(LinkedList *ll, int index, int item){
 /// @return 0 if failed to remove, 1 if removed.
 int removeNode2(LinkedList *ll,int index)
 {
-    /* Write your program code here */
     //Same implemention of the previous
     //First we check if the head of ll is null, we can return straight as the linked list *head has not been initialized yet
     //Or if given index is more than ll's size, then we also return as we cant remove a node there
