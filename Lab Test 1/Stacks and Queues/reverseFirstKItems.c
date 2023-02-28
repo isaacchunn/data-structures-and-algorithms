@@ -32,13 +32,16 @@ typedef struct _queue{
 ///////////////////////// function prototypes ////////////////////////////////////
 
 // You should not change the prototypes of these functions
-
-void sortStack(Stack *s);
+void reverseFirstKItems(Queue *q, int k);
 
 void push(Stack *s, int item);
 int pop(Stack *s);
 int peek(Stack *s);
 int isEmptyStack(Stack *s);
+
+void enqueue(Queue *q, int item);
+int dequeue(Queue *q);
+int isEmptyQueue(Queue *s);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 void printList(LinkedList *ll);
@@ -54,25 +57,17 @@ int main()
 {
     int c, value;
 
-    Stack s;
+    Queue q;
 
     //initialize the stack
-	s.ll.head =NULL;
-	s.ll.size =0;
+	q.ll.head =NULL;
+	q.ll.size =0;
 
 
     c =1;
 
-    //TEST CASE
-    push(&s, 15);
-    push(&s, 3);
-    push(&s, 12);
-    push(&s, 5);
-    push(&s, 6);
-    push(&s, 11);
-
-    printf("1: Insert an integer into the stack;\n");
-    printf("2: Sort the stack in ascending order ;\n");
+    printf("1: Insert an integer into the queue;\n");
+    printf("2: Reverse the elements of the queue until the given number;\n");
     printf("0: Quit;\n");
 
     while (c != 0)
@@ -83,20 +78,22 @@ int main()
 		switch (c)
 		{
 		case 1:
-			printf("Input an integer that you want to insert into the stack: ");
+			printf("Input an integer that you want to insert into the queue: ");
 			scanf("%d", &value);
-			push(&s, value);
-			printf("The resulting stack is: ");
-			printList(&(s.ll));
+			enqueue(&q, value);
+			printf("The resulting queue is: ");
+			printList(&(q.ll));
 			break;
 		case 2:
-			sortStack(&s); // You need to code this function
-			printf("The resulting stack after sorting it in ascending order is: ");
-			printList(&(s.ll));
-			removeAllItems(&(s.ll));
+			printf("Enter an integer to reverse the queue until that number: ");
+            scanf("%d",&value);
+			reverseFirstKItems(&q, value);// You need to code this function
+			printf("The resulting queue after reversing first %d elements is: ", value);
+			printList(&(q.ll));
+			removeAllItems(&(q.ll));
 			break;
 		case 0:
-			removeAllItems(&(s.ll));
+			removeAllItems(&(q.ll));
 			break;
 		default:
 			printf("Choice unknown;\n");
@@ -109,41 +106,37 @@ int main()
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-/// @brief Sorts the stack in ascending order
-/// @param s Stack
-void sortStack(Stack *s)
+
+/// @brief Reverses the order of the first k elements of the queue using a stack
+/// @param q queue
+/// @param k items to reverse
+void reverseFirstKItems(Queue *q, int k)
 {
-    if(s == NULL || isEmptyStack(s))
+    //Variable initialization
+    Stack s;
+    int i;
+    if(q == NULL)
         return;
-
-    /* add your code here */
-    Stack tempStack;
-    int item;
-
-    tempStack.ll.head = NULL;
-    tempStack.ll.tail = NULL;
-    tempStack.ll.size = 0;
-
-    //If s is empty, it means that temp stack is full. and we have finished.
-    while(!isEmptyStack(s))
+    s.ll.head = NULL;
+    s.ll.tail = NULL;
+    s.ll.size = 0;
+    //Store into the stack up to k
+    for(i = 0; i < k; i++)
     {
-        //Get the first element from s
-        item = pop(s);
-        //While the stack is not empty, and the "top" of the current temp stack is lower, we put it back into s
-        //Sorted in descending order, then will be reversed later when we put it back into s
-        while(!isEmptyStack(&tempStack) && peek(&tempStack) > item)
-        {
-            //Put back into s
-            push(s, pop(&tempStack));
-        }
-        //Then push this item into the temp stack
-        push(&tempStack, item);
+        push(&s, dequeue(q));
     }
-    //Then put it all back into s
-    while(!isEmptyStack(&tempStack))
+    //Assume stack now has 321, queue has 456.
+    //We want to push it back into the queue
+    while(!isEmptyStack(&s))
     {
-        push(s, pop(&tempStack));
+        enqueue(q, pop(&s));
     }
+    //Now stack is empty, queue is 4,5,6,3,2,1
+    //Then up to size - k, enqueue on dequeue
+    for(i = 0; i < q->ll.size - k; i++)
+    {
+        enqueue(q, dequeue(q));
+    }   
 }
 
 
@@ -169,6 +162,23 @@ int peek(Stack *s){
 
 int isEmptyStack(Stack *s){
    if ((s->ll).size == 0)
+      return 1;
+   return 0;
+}
+
+void enqueue(Queue *q, int item){
+   insertNode(&(q->ll), q->ll.size, item);
+}
+
+int dequeue(Queue *q){
+   int item;
+   item = ((q->ll).head)->item;
+   removeNode(&(q->ll), 0);
+   return item;
+}
+
+int isEmptyQueue(Queue *q){
+   if ((q->ll).size == 0)
       return 1;
    return 0;
 }

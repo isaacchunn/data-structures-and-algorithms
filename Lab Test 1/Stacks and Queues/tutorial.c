@@ -249,10 +249,11 @@ int balanced(char *expression){
                 pop(&s);
             else if(c == '{' && *expression == '}')
                 pop(&s);
-             else if(c == '[' && *expression == ']')
+            else if(c == '[' && *expression == ']')
                 pop(&s);
+            else
+                return -1;
         }
-
         expression++;
     }
     //If stack still has elements, was not closed properly

@@ -32,7 +32,6 @@ typedef struct _queue{
 ///////////////////////// function prototypes ////////////////////////////////////
 
 // You should not change the prototypes of these functions
-
 void sortStack(Stack *s);
 
 void push(Stack *s, int item);
@@ -62,14 +61,6 @@ int main()
 
 
     c =1;
-
-    //TEST CASE
-    push(&s, 15);
-    push(&s, 3);
-    push(&s, 12);
-    push(&s, 5);
-    push(&s, 6);
-    push(&s, 11);
 
     printf("1: Insert an integer into the stack;\n");
     printf("2: Sort the stack in ascending order ;\n");
@@ -109,40 +100,36 @@ int main()
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-/// @brief Sorts the stack in ascending order
-/// @param s Stack
+/// @brief Sort a given stack in ascending order using another temporary stack
+/// @param s stack
 void sortStack(Stack *s)
 {
-    if(s == NULL || isEmptyStack(s))
-        return;
-
-    /* add your code here */
-    Stack tempStack;
+    //Variable declaration
+    Stack s2;
     int item;
+    if(s == NULL)
+        return;
+    s2.ll.head = NULL;
+    s2.ll.tail = NULL;
+    s2.ll.size = 0;
 
-    tempStack.ll.head = NULL;
-    tempStack.ll.tail = NULL;
-    tempStack.ll.size = 0;
-
-    //If s is empty, it means that temp stack is full. and we have finished.
+    //While the initial stack is not empty
     while(!isEmptyStack(s))
     {
-        //Get the first element from s
+        //Pop s
         item = pop(s);
-        //While the stack is not empty, and the "top" of the current temp stack is lower, we put it back into s
-        //Sorted in descending order, then will be reversed later when we put it back into s
-        while(!isEmptyStack(&tempStack) && peek(&tempStack) > item)
+        //Then check in temp stack, we want to remove up to we find a good place to put.
+        while(!isEmptyStack(&s2) && peek(&s2) > item)
         {
-            //Put back into s
-            push(s, pop(&tempStack));
+            //We want to put it back into s and put the initial in
+            push(s, pop(&s2));
         }
-        //Then push this item into the temp stack
-        push(&tempStack, item);
+        push(&s2, item);
     }
-    //Then put it all back into s
-    while(!isEmptyStack(&tempStack))
+    //Then we want to push everything back from temp stack into s
+    while(!isEmptyStack(&s2))
     {
-        push(s, pop(&tempStack));
+        push(s, pop(&s2));
     }
 }
 

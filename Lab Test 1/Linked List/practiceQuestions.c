@@ -125,6 +125,8 @@ int main()
 
 	//2. concatenate()
 	printf("\n************** concatenate() *******************\n");
+	printList(head);
+	printList(dupRevHead);
 	concatenate(&head, dupRevHead);
 	printf("concatenate(current list, duplicate reverse list)\n  ");
 	printList(head);
