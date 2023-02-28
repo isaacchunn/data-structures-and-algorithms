@@ -91,55 +91,41 @@ int main()
 /// @return 0 if the max value is already head, 1 if we moved it successfully.
 int moveMaxToFront(ListNode **ptrHead)
 {
+   //Variable declaration
+    ListNode * curr, *pre, *maxNode;
+    int min;
+    //Sanity check
     if(*ptrHead == NULL)
         return 0;
-        
-    /* add your code here */
-    //Starting from head, we find the ptr to the max and it's position
-    //Set some theoretical max
-    ListNode * curr = *ptrHead;
-    ListNode * maxNode;
-	ListNode * pre;
-	int m = curr->item;
-	//Update pre somewhere, before the maxNode
-    while(curr)
-    {
-        //Check if the curr iten is less than the next one
-        if(curr->next != NULL && curr->item < curr->next->item)
-        {
-			//So if the next is not null and the next item is larger, then we can update pre to cyrr and the max node to be next
-            //Update maxNode
-            maxNode = curr->next;
-			pre = curr;
-			//Update m to be next item
-			m = curr->next->item;
-        }
-		else if (curr->next == NULL)
-		{
-			//Then its last node, and if its current item is more than the max, then the max node is the last node and pre should have been updated last loop
-			if(curr->item > m)
-			{
-				//Update max node
-				maxNode = curr;
-				m = curr->item;
-			}
-		}
-		//Increment
-        curr = curr->next;
-    }
+    //Variable initialization
+    curr = *ptrHead;
+	pre = NULL;
+	maxNode = *ptrHead;
 
-	//If the max node is already the head, then we dont ahve to move anything
+    //Do looping
+    while(curr != NULL)
+    {
+		//If the next node is not nyll and the next number is larger, then its our new max
+		if(curr->next != NULL && curr->item < curr->next->item)
+		{
+			//Store the reference of the "maxNode"
+			maxNode = curr->next;
+			//Update pre 
+			pre = curr;
+		}
+        curr = curr->next;
+    }    
+
+	//If max node is equals to the head, nothing was changed
 	if(maxNode == *ptrHead)
 		return 0;
+	
+	//Handle the links between both
+	pre->next = pre->next->next;
+	maxNode->next = *ptrHead;
+	*ptrHead = maxNode;
 
-    //Curr is now the pre element
-    //Set pre->next to be pre->next next;
-    pre->next = pre->next->next;
-    //Then set maxNode to be front and update head
-    maxNode->next = *ptrHead;
-    //Update head to be maxNode
-    *ptrHead = maxNode;
-    return 1;
+	return 1;
 }
 
 //////////////////////////////////////////////////////////////////////////////////

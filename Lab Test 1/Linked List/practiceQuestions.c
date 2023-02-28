@@ -191,6 +191,25 @@ ListNode * findNode(ListNode *head, int index){
 	return head;
 }
 
+ListNode* findNode2(LinkedList ll, int index)
+{
+   if(ll.head != NULL){
+        ListNode *cur = ll.head;
+        if (cur==NULL || index<0 || index >ll.size)
+           return NULL;
+
+        while(index>0){
+            cur=cur->next;
+            if (cur==NULL)
+                return NULL;
+            index--;
+        }
+        return cur;
+   }
+   else
+     return NULL;
+}
+
 
 int insertNode(ListNode **ptrHead, int index, int value){
 	ListNode *pre, *cur;
@@ -343,16 +362,54 @@ int duplicateReverse(ListNode *head, ListNode **ptrNewHead){
         insertNode(ptrNewHead,0,curr->num);
         curr = curr->next;
     } 
+	return 0;
 }
 
 ////////////////////////////////////////////////////////////////////
 ////////////
 
-int moveMaxToFront(ListNode **ptrHead){
+////////////////////////////////////////////////////////////////////////
 
+/// @brief Moves the max node of the linked list to the front
+/// @param ptrHead pointer to pointer head
+/// @return 0 if unsuccessful, 1 if successful.
+int moveMaxToFront(ListNode **ptrHead)
+{
+    //Variable declaration
+    ListNode * curr, *pre, *maxNode;
+    int min;
+    //Sanity check
+    if(*ptrHead == NULL)
+        return 0;
+    //Variable initialization
+    curr = *ptrHead;
+	pre = NULL;
+	maxNode = *ptrHead;
 
-	// write your code here
+    //Do looping
+    while(curr != NULL)
+    {
+		//If the next node is not nyll and the next number is larger, then its our new max
+		if(curr->next != NULL && curr->num < curr->next->num)
+		{
+			//Store the reference of the "maxNode"
+			maxNode = curr->next;
+			//Update pre 
+			pre = curr;
+		}
+        curr = curr->next;
+    }    
 
+	//If max node is equals to the head, nothing was changed
+	if(maxNode == *ptrHead)
+		return 0;
+	
+	//Handle the links between both
+	pre->next = pre->next->next;
+	maxNode->next = *ptrHead;
+	*ptrHead = maxNode;
+
+	return 1;
 }
 
 /// @brief Concatenates two linked lists
@@ -361,22 +418,35 @@ int moveMaxToFront(ListNode **ptrHead){
 /// @return 0 if it completes successfully and -1 otherwise
 int concatenate(ListNode **ptrHead1, ListNode *head2){
 
+	//Variable declaration
+	ListNode * curr;
+	//Sanity check
+	if(ptrHead1== NULL || head2 == NULL)
+		return -1;
 	
-
+	curr = *ptrHead1;
+	//Go to the last node
+	while(curr != NULL && curr->next != NULL)
+	{
+		curr = curr->next;
+	}
+	//Now curr holds the last node, so set curr next to be head2
+	curr->next = head2;
+	return 0;
 }
 
 
 int combineAlternating(ListNode **ptrHead, ListNode *head1, ListNode *head2){
 
 	
-
+	return 0;
 }
 
 
 int insertDbl(DblListNode **ptrHead, int index, int value){
 
 	// write your code here
-
+	return 0;
 }
 
 

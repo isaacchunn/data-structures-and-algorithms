@@ -200,6 +200,7 @@ ListNode *findNode(LinkedList *ll, int index){
 	return temp;
 }
 
+
 int insertNode(LinkedList *ll, int index, int value){
 
 	ListNode *pre, *cur;
