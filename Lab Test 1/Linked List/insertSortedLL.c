@@ -136,8 +136,9 @@ int insertSortedLL(LinkedList *ll, int item)
 
         //If it reaches here, then the node should jsut be at the last index
         insertNode(ll,ll->size,item);
-    }
-    
+        return ll->size - 1;
+    }   
+    return 0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
