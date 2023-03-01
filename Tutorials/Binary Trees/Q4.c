@@ -115,7 +115,7 @@ int maxDepth(BTNode *node)
 BTNode *createBTNode(int item){
     BTNode *newNode = malloc(sizeof(BTNode));
     newNode->item = item;
-    newNode->left = NULL;
+    newNode->left = NULL;   
     newNode->right = NULL;
     return newNode;
 }

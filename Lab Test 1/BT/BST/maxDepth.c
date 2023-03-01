@@ -82,9 +82,9 @@ int main()
         }
 
     }
-
     return 0;
 }
+
 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -93,8 +93,18 @@ int main()
 /// @return max depth
 int maxDepth(BTNode *node)
 {
-    /* add your code here */
+    int l,r;
+    if(node == NULL)
+        return -1;
+    
+    //Get the max depth of the left and right nodes
+    l = maxDepth(node->left);
+    r = maxDepth(node->right);
 
+    if (l > r)
+        return l + 1;
+    else 
+        return r + 1;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

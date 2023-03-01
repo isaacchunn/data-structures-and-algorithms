@@ -109,7 +109,7 @@ int duplicateReverse(ListNode *cur,ListNode **ptrNewHead)
     //Variable declaration
     ListNode * curr;
     //Sanity check
-    if(cur == NULL)
+    if(cur == NULL || ptrNewHead == NULL)
         return -1;
     //Variable initialization
     curr = cur;
