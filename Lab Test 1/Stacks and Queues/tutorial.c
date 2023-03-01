@@ -165,6 +165,8 @@ void recursiveReverse(Queue *q){
 /// @return 0 if the string is a palindrome and -1 otherwise
 int palindrome(char *word){
 
+	if(word == NULL)
+		return -1;
 	//Variable declaration
     Stack s;
     Queue q;

@@ -85,20 +85,35 @@ int main()
 /// @return 0 if unsuccessful, 1 if successful.
 int moveMaxToFront(ListNode **ptrHead)
 {
-    //Variable declaration
-    ListNode * curr;
-    int min;
-    //Sanity check
+    ListNode * curr, *pre;
+    int maxItem;
     if(*ptrHead == NULL)
-        return 0;
-    //Variable initialization
+        return -1;
+    pre = NULL;
     curr = *ptrHead;
-    //Do looping
+    //Set max item to be curr
+    maxItem = curr->item;
     while(curr != NULL)
     {
-
-        curr = curr->next;
-    }    
+      if(curr->next != NULL && curr->next->item > maxItem)
+      {
+          pre = curr;
+          maxItem = curr->next->item;
+      }
+      curr = curr->next;
+    }
+    
+    //Check if pre == head
+    if(pre == *ptrHead)
+        return 1;
+    
+    //Else we just assign the links
+    curr = pre->next;
+    pre->next = pre->next->next;
+    curr->next = *ptrHead;
+    *ptrHead = curr;
+    
+    return 1;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
