@@ -52,15 +52,6 @@ int main()
 	printf("0: Quit;\n");
 
 
-    //TEST CASES
-    insertBSTNode(&root, 20);
-    insertBSTNode(&root, 15);
-    insertBSTNode(&root, 10);
-    insertBSTNode(&root, 18);
-    insertBSTNode(&root, 50);
-    insertBSTNode(&root, 25);
-    insertBSTNode(&root, 80);
-
 	while (c != 0)
 	{
 		printf("Please input your choice(1/2/0): ");
@@ -93,41 +84,30 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
-/// @brief Traverses a binary tree in level order and prints out the values using a queue
+/// @brief Level order traversal of a binary tree
 /// @param root root of binary tree
 void levelOrderTraversal(BSTNode* root)
 {
-    //Create an empty queue q
     Queue q;
-    BSTNode * curr;
-    //Initialization of queue
-    q.head = NULL;
-    q.tail = NULL;
-
-    //If the root is NULl, we should return as theres no tree.
+    BSTNode * node;
     if(root == NULL)
         return;
-    
-    //Else, we enqueue the root in the tree.
-    //In this case, the q.head is already a pointer, so 1 more deference of that is sufficient.
-    enqueue(&q.head, &q.tail, root);
-    //While the queue is not empty, we want to dequeue and enqueue back
+    //Initialization of q
+    q.head = NULL;
+    q.tail = NULL;
+    //Push the root into the queue
+    enqueue(&q.head,&q.tail,root);
+
     while(!isEmpty(q.head))
     {
-        //Dequeue the current data and store into curr.
-        curr = dequeue(&q.head, &q.tail);
-        //Then enqueue the curr's left and right child to the queue. SInce this is not a stack question,
-        //if we want to start from the left side first, then we enqueue node->left first.
-        //Swap the order to print from right to left.
+        //Current dequeue
+        node = dequeue(&q.head, &q.tail);
+        printf("%d ", node->item);
 
-        //Print the data first before we go onto the next level
-        printf("%d ", curr->item);
-
-        //Then we enqueue the "next level"'s nodes
-        if(curr->left != NULL)
-            enqueue(&q.head, &q.tail, curr->left);
-        if(curr->right != NULL)
-            enqueue(&q.head, &q.tail, curr->right);
+        if(node->left != NULL)
+            enqueue(&q.head,&q.tail,node->left);
+        if(node->right != NULL)
+            enqueue(&q.head,&q.tail,node->right);
     }
 }
 
