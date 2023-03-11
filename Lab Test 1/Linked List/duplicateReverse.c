@@ -119,4 +119,5 @@ int duplicateReverse(ListNode *cur,ListNode **ptrNewHead)
         insertNode(ptrNewHead,0,curr->item);
         curr = curr->next;
     } 
+    return 0;
 }
