@@ -169,7 +169,7 @@ ListNode* HashSearch(HashTable Q3Hash, int key)
 int HashInsert(HashTable* Q3HashPtr, int key)
 {
     //We want to insert this key into the hash table, we must first check if such a key exists.
-    ListNode * newNode, *head;
+    ListNode * newNode;
     int hashIndex;
 
     //If the hash table size is 0, we can not insert at all.
