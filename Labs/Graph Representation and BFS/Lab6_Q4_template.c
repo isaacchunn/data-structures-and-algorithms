@@ -4,7 +4,7 @@
 typedef struct _listnode
 {
     int vertex;
-	struct _listnode *next;
+    struct _listnode *next;
 } ListNode;
 
 typedef struct _graph{
@@ -87,6 +87,12 @@ void BFS(Graph g, int v){
     q.head = NULL;
     q.tail = NULL;
     q.size = 0;
+    
+    //Reset visited as we want to keep using this functions
+    for(i = 0; i < g.V; i++)
+    {
+        g.visited[i] = 0;
+    }
 
     //Enqueue first vertex
     enqueue(&q, v);
@@ -173,5 +179,5 @@ int isEmptyQueue(Queue q) {
 
 void removeAllItemsFromQueue(Queue *qPtr)
 {
-	while(dequeue(qPtr));
+    while(dequeue(qPtr));
 }
