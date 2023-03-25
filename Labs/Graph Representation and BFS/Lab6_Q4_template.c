@@ -76,13 +76,13 @@ int main()
     return 0;
 }
 
-/// @brief Does depth first search and prints the order of visiting of visiting.
+/// @brief Does breadth first search and prints the order of visiting of visiting.
 /// @param g graph
 /// @param v vertice to start
 void BFS(Graph g, int v){
     //Create a Queue
     Queue q;
-    int i;
+    int i, w;
     //Initialization of variables
     q.head = NULL;
     q.tail = NULL;
@@ -98,20 +98,22 @@ void BFS(Graph g, int v){
     enqueue(&q, v);
     //Mark v as visited
     g.visited[v - 1] = 1;
+    //Print the current vertex for w
+    printf("%d -> ", v);
     //This does not mean that you have visited all the nodes! Only for directed graph though.
     while(!isEmptyQueue(q))
     {
         //Dequeue a vertex noted as w
-        int w = dequeue(&q);
-        //Print the current vertex
-        printf("%d -> ", w);
+        w = dequeue(&q);
+
         //Then for each vertex adjacent to w (loop through the adj matrix!)
         for(i = 0; i < g.V; i++)
         {
             //Loop through entire row and check the adj matrix for neighbours that are not visited.
             //We use w as the matrix row index, looping like that ensures first found in ascending order.
             if(g.matrix[w-1][i] == 1 && g.visited[i] == 0)
-            {
+            {    
+                printf("%d -> ", i + 1);
                 //If its adj, and vertex still not visited.
                 g.visited[i] = 1;
                 enqueue(&q, i + 1);
