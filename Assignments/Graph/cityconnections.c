@@ -137,11 +137,7 @@ int LCA(int firstVertex, int secondVertex, int ** ancestors, int * parents, int*
         index = log(levels[firstVertex-1]);
 
        // printf("Log Level: %d\n", index);
-<<<<<<< Updated upstream
-        for(;index >0 && ancestors[index][firstVertex] == ancestors[index][secondVertex];)
-=======
         while(index >0 && ancestors[index][firstVertex] == ancestors[index][secondVertex])
->>>>>>> Stashed changes
         {
             index--;
         }
@@ -220,11 +216,7 @@ int* city_population (int N, int* population, int** road, int Q, int** cities)
     dfs(1, list, 0, 0, levels, parents);
     //Calculate the ancestors in logn
     calculateAncestors(ancestors, parents, N);
-<<<<<<< Updated upstream
-    
-=======
     /*
->>>>>>> Stashed changes
     printf("\nLevels\n");
     for(i = 0; i < N; i++)
     {
@@ -246,13 +238,8 @@ int* city_population (int N, int* population, int** road, int Q, int** cities)
         }
         putchar('\n');
     }
-<<<<<<< Updated upstream
-     
-        
-=======
      */
 
->>>>>>> Stashed changes
     for (i = 0; i < Q; i++)
     {
         //Reset count
@@ -268,11 +255,7 @@ int* city_population (int N, int* population, int** road, int Q, int** cities)
         
         startVertice = U;
         endVertice = V;
-<<<<<<< Updated upstream
-        //Propagate both vertice to the LCA and find the population
-=======
         //Propagate both vertice to the LCa and find the population
->>>>>>> Stashed changes
         while(startVertice != lca)
         {
             if(population[startVertice - 1] <= W)
@@ -288,10 +271,7 @@ int* city_population (int N, int* population, int** road, int Q, int** cities)
         //Do one last check for LCA
         if(population[lca - 1] <= W)
             count++;
-<<<<<<< Updated upstream
-=======
         
->>>>>>> Stashed changes
         //Then store into answer the count
         answer[i] = count;
     }
@@ -308,9 +288,4 @@ int* city_population (int N, int* population, int** road, int Q, int** cities)
     free(levels);
     free(parents);
     return answer;
-<<<<<<< Updated upstream
 }
-
-=======
-}
->>>>>>> Stashed changes
