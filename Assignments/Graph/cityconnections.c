@@ -10,19 +10,19 @@ int main() {
     int i_population;
     int *population = (int *)malloc(sizeof(int)*(N));
     for(i_population = 0; i_population < N; i_population++)
-        scanf("%d", &population[i_population]);
+    	scanf("%d", &population[i_population]);
     int i_road, j_road;
     int **road = (int **)malloc((N-1)*sizeof(int *));
     for(i_road = 0; i_road < N-1; i_road++)
     {
-        road[i_road] = (int *)malloc((2)*sizeof(int));
+    	road[i_road] = (int *)malloc((2)*sizeof(int));
     }
     for(i_road = 0; i_road < N-1; i_road++)
     {
-        for(j_road = 0; j_road < 2; j_road++)
-        {
-            scanf("%d", &road[i_road][j_road]);
-        }
+    	for(j_road = 0; j_road < 2; j_road++)
+    	{
+    		scanf("%d", &road[i_road][j_road]);
+    	}
     }
     int Q;
     scanf("%d", &Q);
@@ -30,21 +30,21 @@ int main() {
     int **cities = (int **)malloc((Q)*sizeof(int *));
     for(i_cities = 0; i_cities < Q; i_cities++)
     {
-        cities[i_cities] = (int *)malloc((3)*sizeof(int));
+    	cities[i_cities] = (int *)malloc((3)*sizeof(int));
     }
     for(i_cities = 0; i_cities < Q; i_cities++)
     {
-        for(j_cities = 0; j_cities < 3; j_cities++)
-        {
-            scanf("%d", &cities[i_cities][j_cities]);
-        }
+    	for(j_cities = 0; j_cities < 3; j_cities++)
+    	{
+    		scanf("%d", &cities[i_cities][j_cities]);
+    	}
     }
 
     int* out_ = city_population(N, population, road, Q, cities);
     printf("%d", out_[0]);
     int i_out_;
     for(i_out_ = 1; i_out_ < Q; i_out_++)
-        printf("\n%d", out_[i_out_]);
+    	printf("\n%d", out_[i_out_]);
 }
 #include<math.h>
 
@@ -137,7 +137,11 @@ int LCA(int firstVertex, int secondVertex, int ** ancestors, int * parents, int*
         index = log(levels[firstVertex-1]);
 
        // printf("Log Level: %d\n", index);
+<<<<<<< Updated upstream
         for(;index >0 && ancestors[index][firstVertex] == ancestors[index][secondVertex];)
+=======
+        while(index >0 && ancestors[index][firstVertex] == ancestors[index][secondVertex])
+>>>>>>> Stashed changes
         {
             index--;
         }
@@ -216,7 +220,11 @@ int* city_population (int N, int* population, int** road, int Q, int** cities)
     dfs(1, list, 0, 0, levels, parents);
     //Calculate the ancestors in logn
     calculateAncestors(ancestors, parents, N);
+<<<<<<< Updated upstream
     
+=======
+    /*
+>>>>>>> Stashed changes
     printf("\nLevels\n");
     for(i = 0; i < N; i++)
     {
@@ -238,8 +246,13 @@ int* city_population (int N, int* population, int** road, int Q, int** cities)
         }
         putchar('\n');
     }
+<<<<<<< Updated upstream
      
         
+=======
+     */
+
+>>>>>>> Stashed changes
     for (i = 0; i < Q; i++)
     {
         //Reset count
@@ -255,7 +268,11 @@ int* city_population (int N, int* population, int** road, int Q, int** cities)
         
         startVertice = U;
         endVertice = V;
+<<<<<<< Updated upstream
         //Propagate both vertice to the LCA and find the population
+=======
+        //Propagate both vertice to the LCa and find the population
+>>>>>>> Stashed changes
         while(startVertice != lca)
         {
             if(population[startVertice - 1] <= W)
@@ -271,6 +288,10 @@ int* city_population (int N, int* population, int** road, int Q, int** cities)
         //Do one last check for LCA
         if(population[lca - 1] <= W)
             count++;
+<<<<<<< Updated upstream
+=======
+        
+>>>>>>> Stashed changes
         //Then store into answer the count
         answer[i] = count;
     }
@@ -287,5 +308,9 @@ int* city_population (int N, int* population, int** road, int Q, int** cities)
     free(levels);
     free(parents);
     return answer;
+<<<<<<< Updated upstream
 }
 
+=======
+}
+>>>>>>> Stashed changes
