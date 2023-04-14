@@ -7,8 +7,10 @@ The codes here are indicative and not exhaustive, and is just a means to keep tr
 Feel free to reach out if there can be any improvements :)
 
  - Linked Lists
-	 - Tutorial (done)
-	 - Assignment (done)
-	 - Lab (done)
  - Stacks and Queues
  - Binary Trees
+ - Hash Tables
+ - DFS/BFS
+ - Backtracking
+ - Dynamic Programming
+ - Matching Problems
